@@ -1,44 +1,286 @@
-# Quantum Machine Learning for Pneumonia Classification Using Chest X-Ray Images
+# 🧬 Quantum ML for Pneumonia Classification
+### *Exploring the intersection of Quantum Computing, Machine Learning & Medical Imaging*
 
-## 1. Project Overview
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Machine%20Learning-Scikit--Learn-orange?logo=scikitlearn" />
+  <img src="https://img.shields.io/badge/Quantum%20ML-Qiskit-6929C4" />
+  <img src="https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/Experiment%20Tracking-MLflow-0194E2?logo=mlflow" />
+  <img src="https://img.shields.io/badge/Container-Docker-2496ED?logo=docker&logoColor=white" />
+</p>
 
-This project explores the application of Quantum Machine Learning (QML) for medical image classification, specifically identifying pneumonia from chest X-ray images.
+---
 
-The project classifies images into two categories:
+## 🌟 01. Project Vision
 
-- **NORMAL:** Chest X-ray images without pneumonia.
-- **PNEUMONIA:** Chest X-ray images showing pneumonia-related patterns.
+Can quantum computing contribute to the future of medical image classification?
 
-The project investigates quantum machine learning techniques and compares their performance with classical machine learning algorithms.
+This project explores that question by developing a machine learning pipeline for classifying chest X-ray images into two categories:
 
-It also includes an end-to-end machine learning workflow with experiment tracking, model deployment, API development, automated testing and containerization.
+- 🟢 **NORMAL** — X-ray images without the target pneumonia classification.
+- 🔴 **PNEUMONIA** — X-ray images classified as showing pneumonia.
 
-**Note:** This project is an academic research and demonstration project. Its predictions are not intended for clinical diagnosis.
+The project combines classical machine learning experiments with an exploratory Quantum Machine Learning (QML) approach.
 
-## 2. Problem Statement
+It also includes an API-based prediction system, experiment tracking, automated testing, containerization, and cloud deployment.
 
-Pneumonia is a respiratory infection that can be associated with visible patterns in chest X-ray images.
+> **Our objective:** Explore different learning approaches for medical image classification while building a reproducible and deployable ML pipeline.
 
-The objective of this project is to develop and evaluate machine learning approaches that classify chest X-ray images into NORMAL and PNEUMONIA categories.
+## 🎯 02. Project Highlights
 
-The project also investigates whether quantum machine learning approaches can provide useful classification performance compared with classical machine learning algorithms.
+| Feature | Description |
+|---|---|
+| 🩻 Image Classification | Classifies chest X-rays into NORMAL and PNEUMONIA |
+| 🧠 Classical ML | SVM and Random Forest experiments |
+| ⚛️ Quantum ML | Exploratory QSVC-based experiment |
+| 📉 Dimensionality Reduction | PCA for feature reduction |
+| 📊 Experiment Tracking | MLflow for model metrics and runs |
+| 🚀 Prediction API | FastAPI-based image prediction |
+| 🐳 Containerization | Docker-based deployment |
+| 🧪 Automated Testing | Pytest-based API tests |
+| ☁️ Cloud Deployment | Hosted application on Render |
 
-## 3. Dataset
+## 🏗️ 03. System Architecture
+
+The project follows a modular machine learning workflow:
+
+```text
+             CHEST X-RAY DATASET
+                      |
+                      v
+             IMAGE PREPROCESSING
+          Resize | Grayscale | Normalize
+                      |
+                      v
+             FEATURE EXTRACTION
+                  PCA (6)
+                      |
+              +-------+-------+
+              |               |
+              v               v
+        CLASSICAL ML      QUANTUM ML
+              |               |
+         SVM / RF           QSVC
+              |               |
+              +-------+-------+
+                      |
+                      v
+              MODEL EVALUATION
+                      |
+                      v
+              MLFLOW TRACKING
+                      |
+                      v
+             SAVED MODEL PIPELINE
+                      |
+                      v
+                FASTAPI APP
+                      |
+                      v
+              X-RAY PREDICTION
+```
+
+## 🩻 04. Dataset
 
 **Dataset:** Chest X-Ray Images (Pneumonia)
 
-**Source:** Kaggle
+**Source:** [Kaggle – Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)
 
-**Dataset link:** https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+The dataset contains chest X-ray images organized into NORMAL and PNEUMONIA categories.
 
-The dataset contains chest X-ray images organized into the following classes:
+### Preprocessing pipeline
 
-- NORMAL
-- PNEUMONIA
+1. Load chest X-ray images.
+2. Convert images to grayscale.
+3. Resize images to 64 × 64 pixels.
+4. Normalize pixel values.
+5. Flatten images into feature vectors.
+6. Apply StandardScaler.
+7. Apply PCA with 6 components.
 
-The dataset is organized into training, testing and validation directories.
+## ⚙️ 05. Machine Learning Methodology
 
-Expected directory structure:
+### Classical Machine Learning
+
+Three classical models were evaluated:
+
+| Model | Configuration |
+|---|---|
+| SVM | RBF kernel, C = 1 |
+| SVM | RBF kernel, C = 10 |
+| Random Forest | 100 estimators, max depth = 15 |
+
+### Quantum Machine Learning
+
+An exploratory Quantum Support Vector Classifier (QSVC) experiment was also conducted.
+
+| Component | Configuration |
+|---|---|
+| Algorithm | QSVC |
+| Feature Map | ZZFeatureMap |
+| Qubits | 6 |
+| Repetitions | 2 |
+| Training Sample | 80 images |
+| Validation Sample | 40 images |
+
+The quantum experiment used a smaller sample and should be interpreted separately from the classical model evaluation.
+
+## 📊 06. Experimental Results
+
+### Classical Model Comparison
+
+The following results were obtained from the MLflow-tracked validation runs.
+
+| Model | Accuracy | Precision | Recall | F1-score |
+|---|---:|---:|---:|---:|
+| 🥇 SVM (C=1) | **90.05%** | 92.26% | 89.86% | **91.04%** |
+| SVM (C=10) | 89.23% | **92.40%** | 88.12% | 90.21% |
+| Random Forest | 88.74% | 89.88% | **90.14%** | 90.01% |
+
+### Key Observations
+
+- SVM with C=1 achieved the highest validation accuracy and F1-score among the three classical models.
+- SVM with C=10 achieved the highest precision.
+- Random Forest achieved the highest recall.
+- Model selection should consider multiple metrics rather than accuracy alone.
+
+### Quantum ML Experiment
+
+The earlier QSVC experiment produced the following results on its smaller validation sample:
+
+| Metric | QSVC Result |
+|---|---:|
+| Accuracy | 55.00% |
+| Precision | 57.58% |
+| Recall | 82.61% |
+| F1-score | 67.86% |
+
+**Important:** The QSVC and classical results were obtained using different evaluation sample sizes. They are not a controlled, directly comparable benchmark.
+
+## 📈 07. Experiment Tracking with MLflow
+
+MLflow is used to record machine learning experiments.
+
+Tracked information includes:
+
+- Model parameters
+- Accuracy
+- Precision
+- Recall
+- F1-score
+- Model artifacts
+
+Start the MLflow interface locally:
+
+```bash
+python -m mlflow ui --backend-store-uri sqlite:///mlflow.db
+```
+
+Open:
+
+`http://127.0.0.1:5000`
+
+## 🚀 08. Application & API
+
+The trained model is integrated into a FastAPI application.
+
+### Live Demo
+
+🌐 **[Open Deployed Application](https://quantum-ml-medical-image-classification.onrender.com/)**
+
+### API Endpoints
+
+| Endpoint | Method | Purpose |
+|---|---|---|
+| `/` | GET | Application homepage |
+| `/health` | GET | Health check |
+| `/docs` | GET | Interactive API documentation |
+| `/predict` | POST | X-ray image prediction |
+| `/predict-page` | GET | Prediction page |
+
+### Prediction Workflow
+
+1. Upload a chest X-ray image.
+2. The application preprocesses the image.
+3. The saved scaler and PCA transform the image features.
+4. The trained model generates a prediction.
+5. The API returns the predicted class and confidence.
+
+## 🧪 09. Testing & Quality Assurance
+
+The application includes automated tests using Pytest.
+
+The test suite checks:
+
+- Homepage availability.
+- API health endpoint.
+- Valid image prediction.
+- Missing image input.
+- Invalid file content type.
+
+Run the tests:
+
+```bash
+python -m pytest test_app.py -v
+```
+
+A separate synthetic training smoke test is also available:
+
+```bash
+python ci_train.py
+```
+
+This checks the training components independently of the actual chest X-ray dataset.
+
+## 🐳 10. Docker Deployment
+
+Build the Docker image:
+
+```bash
+docker build -t quantum-ml-pneumonia .
+```
+
+Run the container:
+
+```bash
+docker run -d -p 10000:10000 --name quantum-pneumonia quantum-ml-pneumonia
+```
+
+Open:
+
+`http://localhost:10000`
+
+## 💻 11. Run Locally
+
+### Step 1 — Clone the repository
+
+```bash
+git clone https://github.com/ParulRana2907/Quantum-ML-Medical-Image-Classification.git
+cd Quantum-ML-Medical-Image-Classification
+```
+
+### Step 2 — Install dependencies
+
+```bash
+python -m venv .venv
+```
+
+Windows:
+
+```bash
+.venv\Scripts\activate
+```
+
+Install packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Step 3 — Prepare the dataset
+
+Download the dataset from Kaggle and organize it as:
 
 ```text
 data/
@@ -54,278 +296,102 @@ data/
         └── PNEUMONIA/
 ```
 
-The dataset is not included in the GitHub repository. Users must obtain it from Kaggle and place it in the expected directory structure.
-
-## 4. Technologies Used
-
-| Technology | Purpose |
-|---|---|
-| Python | Main programming language |
-| NumPy and Pandas | Data processing |
-| OpenCV and Pillow | Image preprocessing |
-| Scikit-learn | Classical machine learning |
-| Qiskit | Quantum machine learning experiments |
-| MLflow | Experiment tracking |
-| FastAPI | Model serving and API development |
-| Pytest | Automated testing |
-| Docker | Application containerization |
-| GitHub Actions | Continuous integration |
-
-## 5. Machine Learning Workflow
-
-The project follows these major stages:
-
-1. Load chest X-ray images from the dataset.
-2. Convert images to grayscale.
-3. Resize images to 64 × 64 pixels.
-4. Normalize pixel values.
-5. Flatten images into feature vectors.
-6. Apply StandardScaler for feature standardization.
-7. Apply Principal Component Analysis (PCA) for dimensionality reduction.
-8. Train classical machine learning algorithms.
-9. Evaluate a quantum machine learning classifier.
-10. Compare model performance using evaluation metrics.
-11. Track experiments using MLflow.
-12. Save the selected trained model.
-13. Integrate the trained model with FastAPI.
-14. Test and deploy the application.
-
-## 6. Machine Learning Models
-
-### Classical Machine Learning
-
-The following classical algorithms are evaluated:
-
-- Support Vector Machine (SVM) with RBF kernel and C = 1.
-- Support Vector Machine (SVM) with RBF kernel and C = 10.
-- Random Forest Classifier.
-
-### Quantum Machine Learning
-
-A quantum Support Vector Classifier (QSVC) is explored using Qiskit.
-
-The quantum experiment uses:
-
-- Six qubits.
-- ZZFeatureMap.
-- Two feature-map repetitions.
-- PCA-reduced input features.
-
-The quantum model is evaluated as an experimental comparison with the classical approaches.
-
-**Evaluation note:** The quantum experiment uses a smaller image sample because quantum kernel evaluation is computationally expensive. Its results should therefore be interpreted separately from the full-data classical experiments.
-
-## 7. Model Evaluation
-
-The models are evaluated using:
-
-- Accuracy
-- Precision
-- Recall
-- F1-score
-
-### Classical Model Comparison
-
-## Model Performance Comparison
-
-The following table presents the validation performance
-of the three classical machine learning models trained
-during the experiment.
-
-| Model | Accuracy | Precision | Recall | F1-score |
-|---|---:|---:|---:|---:|
-| SVM (C=1) | 90.05% | 92.26% | 89.86% | 91.04% |
-| SVM (C=10) | 89.23% | 92.40% | 88.12% | 90.21% |
-| Random Forest | 88.74% | 89.88% | 90.14% | 90.01% |
-
-Based on validation F1-score and accuracy, SVM (C=1)
-achieved the best overall performance among these
-three classical models.
-
-### Quantum Model Results
-
-Add the quantum model's accuracy, precision, recall and F1-score from the notebook experiment.
-
-Clearly mention that it was evaluated on a smaller sample.
-
-### Best Model Selection
-
-The final classical model is selected based on validation performance, particularly the F1-score.
-
-The selected model, preprocessing scaler and PCA transformation are saved together in:
-
-```text
-model/best_model_pipeline.joblib
-```
-
-## 8. Experiment Tracking with MLflow
-
-MLflow is used to record and compare machine learning experiments.
-
-The tracked information includes:
-
-- Algorithm names
-- Model hyperparameters
-- Evaluation metrics
-- Model artifacts
-
-To launch the MLflow interface:
-
-```bash
-python -m mlflow ui --backend-store-uri sqlite:///mlflow.db
-```
-
-Open:
-
-http://127.0.0.1:5000
-
-## 9. Application and API Development
-
-FastAPI is used to create an application that accepts chest X-ray images and returns model predictions.
-
-### API Endpoints
-
-| Endpoint | Method | Purpose |
-|---|---|---|
-| `/` | GET | Application homepage |
-| `/health` | GET | Application health check |
-| `/docs` | GET | Interactive API documentation |
-| `/predict` | POST | Image classification |
-
-The prediction API returns the predicted class and confidence information.
-
-### Live Application
-
-https://quantum-ml-medical-image-classification.onrender.com/
-
-## 10. Installation and Execution
-
-### Step 1: Clone the repository
-
-```bash
-git clone https://github.com/ParulRana2907/Quantum-ML-Medical-Image-Classification.git
-cd Quantum-ML-Medical-Image-Classification
-```
-
-### Step 2: Install dependencies
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-### Step 3: Download the dataset
-
-Download the Chest X-Ray Images (Pneumonia) dataset from Kaggle and place it under:
-
-```text
-data/chest_xray/
-```
-
-### Step 4: Train the models
+### Step 4 — Train the models
 
 ```bash
 python train.py
 ```
 
-### Step 5: Run the application
+### Step 5 — Start the API
 
 ```bash
-python -m uvicorn app:app --reload
+uvicorn app:app --reload
 ```
 
 Open:
 
-http://127.0.0.1:8000/
+`http://127.0.0.1:8000`
 
-## 11. Docker Implementation
+## 🛠️ 12. Technology Stack
 
-The application is containerized using Docker.
+| Category | Technologies |
+|---|---|
+| Programming | Python |
+| Image Processing | OpenCV, Pillow |
+| Data Processing | NumPy, Pandas |
+| Classical ML | Scikit-learn |
+| Quantum ML | Qiskit, QSVC |
+| Dimensionality Reduction | PCA |
+| Experiment Tracking | MLflow |
+| Backend | FastAPI |
+| Testing | Pytest |
+| Containerization | Docker |
+| CI/CD | GitHub Actions |
+| Deployment | Render |
+| Version Control | Git & GitHub |
 
-### Build the Docker image
+## 🔮 13. Future Scope
 
-```bash
-docker build -t quantum-ml-pneumonia .
-```
+Potential future improvements include:
 
-### Run the Docker container
+- Testing larger and more diverse datasets.
+- Evaluating additional quantum feature maps and classifiers.
+- Conducting controlled comparisons between classical and quantum approaches.
+- Exploring transfer learning and deep learning architectures.
+- Improving model interpretability using explainable AI.
+- Expanding automated experiment tracking and evaluation.
 
-```bash
-docker run -d -p 10000:10000 --name quantum-pneumonia quantum-ml-pneumonia
-```
+## ⚠️ 14. Limitations & Responsible Use
 
-### Access the application
+- This is an academic research and demonstration project.
+- Predictions are not a substitute for professional medical diagnosis.
+- Dataset quality, class distribution, and preprocessing can influence performance.
+- The quantum experiment uses a smaller sample and requires further evaluation.
+- The model should not be used to make clinical decisions.
+
+## 📁 15. Repository Structure
 
 ```text
-http://localhost:10000/
+Quantum-ML-Medical-Image-Classification/
+│
+├── app.py
+├── train.py
+├── ci_train.py
+├── test_app.py
+├── requirements.txt
+├── requirements-serve.txt
+├── Dockerfile
+├── README.md
+│
+├── model/
+│   └── best_model_pipeline.joblib
+│
+├── static/
+│   └── index.html
+│
+├── screenshots/
+│
+└── .github/
+    └── workflows/
+        └── tests.yml
 ```
 
-The serving container uses `requirements-serve.txt` to install its runtime dependencies.
+## 👩‍💻 16. Project Information
 
-## 12. Testing and Continuous Integration
+**Project:** Quantum ML for Pneumonia Classification Using Chest X-Ray Images
 
-Pytest is used to verify the application.
+**Domain:** Artificial Intelligence | Machine Learning | Quantum Computing | Healthcare
 
-Run the test suite:
+**Developer:** Parul Rana
 
-```bash
-python -m pytest test_app.py -v
-```
+**GitHub Repository:** [View Source Code](https://github.com/ParulRana2907/Quantum-ML-Medical-Image-Classification)
 
-The application tests cover:
+**Live Application:** [Try the Deployed Project](https://quantum-ml-medical-image-classification.onrender.com/)
 
-- Homepage availability
-- Health endpoint
-- Valid image prediction
-- Missing image input
-- Invalid file type
+---
 
-The project also includes a GitHub Actions workflow that performs a synthetic-data training smoke test and runs the automated application tests.
-
-The synthetic CI training test is separate from the actual chest X-ray model training.
-
-## 13. GitHub Repository
-
-Project source code:
-
-https://github.com/ParulRana2907/Quantum-ML-Medical-Image-Classification
-
-## 14. Screenshots
-
-The `screenshots/` directory contains screenshots of the project implementation and results.
-
-Recommended screenshots include:
-
-- Dataset structure
-- Model training output
-- MLflow experiment comparison
-- FastAPI homepage
-- API documentation
-- Image prediction results
-- Docker container running
-- GitHub Actions successful workflow
-- Live Render application
-
-## 15. Limitations
-
-- Quantum machine learning experiments use a smaller dataset sample because of computational limitations.
-- The quantum and classical model results are not directly comparable when evaluated on different sample sizes.
-- Model performance depends on dataset quality and preprocessing.
-- The application is an academic demonstration and is not clinically validated.
-- Predictions should not be used as a substitute for professional medical evaluation.
-
-## 16. Future Scope
-
-- Evaluate additional quantum machine learning algorithms.
-- Explore quantum feature maps and different circuit configurations.
-- Improve model generalization using larger datasets.
-- Investigate hybrid quantum-classical architectures.
-- Perform more extensive evaluation on independent datasets.
-- Improve experiment reproducibility and model monitoring.
-
-## 17. Conclusion
-
-This project explores Quantum Machine Learning for chest X-ray image classification and compares it with classical machine learning algorithms.
-
-It combines image preprocessing, dimensionality reduction, model training, quantum experimentation, MLflow tracking, FastAPI development, Docker containerization and automated testing.
-
-The project provides an academic foundation for further exploration of quantum machine learning in medical image classification.
+<p align="center">
+  <b>⚛️ Exploring intelligent healthcare through Classical & Quantum Machine Learning.</b>
+  <br/>
+  <i>Built as an academic exploration of emerging AI technologies.</i>
+</p>
