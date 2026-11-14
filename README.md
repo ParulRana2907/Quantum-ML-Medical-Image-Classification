@@ -126,13 +126,21 @@ The models are evaluated using:
 
 ### Classical Model Comparison
 
-| Model | Accuracy | Precision | Recall | F1-score |
-|---|---|---|---|---|
-| SVM (C=1) | Add result | Add result | Add result | Add result |
-| SVM (C=10) | Add result | Add result | Add result | Add result |
-| Random Forest | Add result | Add result | Add result | Add result |
+## Model Performance Comparison
 
-Replace these placeholders with the latest successful validation metrics from MLflow.
+The following table presents the validation performance
+of the three classical machine learning models trained
+during the experiment.
+
+| Model | Accuracy | Precision | Recall | F1-score |
+|---|---:|---:|---:|---:|
+| SVM (C=1) | 90.05% | 92.26% | 89.86% | 91.04% |
+| SVM (C=10) | 89.23% | 92.40% | 88.12% | 90.21% |
+| Random Forest | 88.74% | 89.88% | 90.14% | 90.01% |
+
+Based on validation F1-score and accuracy, SVM (C=1)
+achieved the best overall performance among these
+three classical models.
 
 ### Quantum Model Results
 
