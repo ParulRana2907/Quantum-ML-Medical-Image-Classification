@@ -3,18 +3,11 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY requirements-serve.txt .
 
 RUN python -m pip install --upgrade pip
 
-
-RUN python -m pip install --no-cache-dir \
-    --index-url https://pypi.org/simple \
-    --retries 10 \
-    --timeout 120 \
-    --prefer-binary \
-    -r requirements.txt
-
+RUN python -m pip install --no-cache-dir -r requirements-serve.txt
 
 COPY app.py .
 COPY model/ ./model/

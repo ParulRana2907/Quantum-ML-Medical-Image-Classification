@@ -11,3 +11,7 @@ mlflow.db
 *.sqlite
 mlruns/
 .env
+*.log
+logs/
+.DS_Store
+.pytest_cache/

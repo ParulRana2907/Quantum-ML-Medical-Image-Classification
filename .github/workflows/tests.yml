@@ -1,5 +1,5 @@
 
-name: Quantum ML Project Tests
+name: Quantum ML Project CI
 
 on:
   push:
@@ -26,5 +26,8 @@ jobs:
           pip install -r requirements.txt
           pip install pytest httpx
 
-      - name: Run tests
+      - name: Run CI synthetic training smoke test
+        run: python ci_train.py
+
+      - name: Run automated tests
         run: python -m pytest test_app.py -v
