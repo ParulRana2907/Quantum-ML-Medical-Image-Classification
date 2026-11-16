@@ -13,7 +13,7 @@ def test_home_page():
     response = client.get("/")
 
     assert response.status_code == 200
-    assert "Chest X-Ray Classification" in response.text
+    assert "Quantum.Med AI" in response.text
 
 
 # Test 2: Health endpoint
@@ -55,7 +55,6 @@ def test_valid_image_prediction():
 def test_missing_file():
     response = client.post("/predict")
 
-    # FastAPI should reject a missing required file
     assert response.status_code == 422
 
 
